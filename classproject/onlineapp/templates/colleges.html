@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" rel="stylesheet" type="text/css">
+    <style>
+        h1{
+            text-align:center;
+            margin-top:3%;
+            color:green;
+            font-size:200%;
+        }
+        table{
+            margin-top:3%;
+        }
+        .add{
+            margin-left:3%;
+            margin-top:1%;
+        }
+        h2{
+            padding:1% 0% 1% 10%;
+            font-size:150%;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" style="color:white;background-color:green;">
+        <h2>Online Student App</h2>
+        <div style="padding:1% 0% 1% 0%;margin-left:90%">
+            <a class="button" href="{% url 'logout_html' %}">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>PARTICIPATING COLLEGES</h1>
+        <a class="button is-success add" href="{% url 'add_college_html' %}">ADD COLLEGE</a>
+        <table class="table is-striped is-fullwidth">
+             <tr>
+                 <th>ACRONYM</th>
+                 <th>COLLEGE NAME</th>
+                 <th>LOCATION</th>
+                 <th>CONTACT</th>
+                 <th>ACTIONS</th>
+             </tr>
+             {% for college in jails %}
+                <tr>
+                    <td>{{college.acronym}}</td>
+                    <td>
+                        <a href="{% url 'collegedetails_html' college.id%}">
+                            {{college.name}}
+                        </a>
+                    </td>
+                    <td>{{college.location}}</td>
+                    <td>{{college.contact}}</td>
+                    <td>
+                        <form id="{{college.id}}" method="post" action="{% url 'delete_college_html' college.id %}">
+                            {% csrf_token %}
+                            <a href="{% url 'edit_college_html' college.id %}">edit</a> |
+                            <a onclick="document.getElementById({{college.id}}).submit()">delete</a>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

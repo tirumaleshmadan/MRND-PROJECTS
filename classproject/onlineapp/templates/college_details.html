@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" rel="stylesheet" type="text/css">
+    <style>
+        h1{
+            text-align:center;
+            margin-top:3%;
+            color:green;
+            font-size:200%;
+        }
+        table{
+            margin:3% 0% 0% 10%;
+        }
+        .add{
+            margin-left:3%;
+            margin-top:1%;
+        }
+        h2{
+            padding:1% 0% 1% 10%;
+            font-size:150%;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" style="color:white;background-color:green;">
+        <h2>Online Student App</h2>
+        <div style="padding:1% 0% 1% 0%;margin-left:90%">
+            <a class="button" href="{% url 'logout_html' %}">Logout</a>
+        </div>
+    </div>
+    <h1>{{title}}</h1>
+    <a class="button is-success add" href="{% url 'add_student_html' college.id %}">ADD STUDENT</a>
+    <table class="table is-striped">
+         <tr>
+             <th>STUDENT NAME</th>
+             <th>PROBLEM 1</th>
+             <th>PROBLEM 2</th>
+             <th>PROBLEM 3</th>
+             <th>PROBLEM 4</th>
+             <th>TOTAL MARKS</th>
+             <th>ACTIONS</th>
+         </tr>
+        {% for student in students %}
+        <tr>
+            <td>
+                {{student.name}}
+            </td>
+            <td>
+                {{student.mocktest1.problem1}}
+            </td>
+            <td>
+                {{student.mocktest1.problem2}}
+            </td>
+            <td>
+                {{student.mocktest1.problem3}}
+            </td>
+            <td>
+                {{student.mocktest1.problem4}}
+            </td>
+            <td>
+                {{student.mocktest1.total}}
+            </td>
+            <td>
+                <form id="{{student.id}}" method="post" action="{% url 'delete_student_html' college.id student.id %}">
+                    {% csrf_token %}
+                    <a href="{% url 'edit_student_html' college.id student.id %}">edit</a> |
+                    <a onclick="document.getElementById({{student.id}}).submit()">delete</a>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

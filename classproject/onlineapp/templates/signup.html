@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIGNUP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" rel="stylesheet" type="text/css">
+    <style>
+        h1{
+            text-align:center;
+            margin-top:5%;
+            color:green;
+            font-size:200%;
+        }
+        .box{
+            margin-top:4%;
+            margin-bottom:4%;
+        }
+        h2{
+            padding:1% 0% 1% 10%;
+            font-size:150%;
+            float:left;
+        }
+        ::placeholder {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" style="color:white;background-color:green;">
+        <h2>Online Student App</h2>
+        <div style="padding:1% 0% 1% 0%;margin-left:85%">
+            <a class="button" href="{% url 'login_html' %}">Login</a>
+            <a class="button" href="{% url 'signup_html' %}">Signup</a>
+        </div>
+    </div>
+    <h1>SIGNUP</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container" style="width:25%;margin-top:3%">
+            <div class="feild">
+                <div class="control">
+                    {{signup_form.first_name}}
+                </div>
+            </div>
+            <div class="feild">
+                <div class="control">
+                    {{signup_form.last_name}}
+                </div>
+            </div>
+            <div class="feild">
+                <div class="control">
+                    {{signup_form.username}}
+                </div>
+            </div>
+            <div class="feild">
+                <div class="control">
+                    {{signup_form.password}}
+                </div>
+            </div>
+            <center><input class="button is-success" type="submit" value="SIGNUP" name="submit"></center>
+        </div>
+    </form>
+</body>
+</html>
